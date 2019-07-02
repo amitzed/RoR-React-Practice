@@ -5,41 +5,41 @@ class People extends React.Component {
       peopleListIsVisible:true,
       addPersonIsVisible:false,
       personIsVisible:false,
-      editPersonIsVisible:false
+      editPersonIsVisible:false,
+      people: []
     }
     this.toggleState = this.toggleState.bind(this)
   }
+  componentDidMount () {
+    this.getPeople();
+  }
 
-  toggleState (st) {
-    this.setState({ [st]: !this.state[st] })
+  getPeople () {
+    fetch('/people')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          people: data
+        })
+      }).catch(error => console.log(error))
+  }
+
+  toggleState (st1, st2) {
+    this.setState({
+      [st1]: !this.state[st1],
+      [st2]: !this.state[st2]
+    })
   }
 
   render() {
     return (
       <div className="people column">
         <h2> People </h2>
-        <button className="button is-success" onClick={()=>this.toggleState('addPersonIsVisible')}>Add a Person</button>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <img src="https://robohash.org/static_react_component13/?size=100x100&set=set4" alt="Felix"/>
-              </td>
-              <td className='person'>
-                <h3> Felix Fancy Pants </h3>
-              </td>
-              <td>
-                <button className='button is-warning is-small'>Edit</button>
-              </td>
-              <td>
-                <button className='button is-danger is-small'>Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {this.state.peopleListIsVisible ? <button className="button is-success" onClick={()=>this.toggleState('addPersonIsVisible', 'peopleListIsVisible')}>Add a Person</button> :''}
 
-        {this.state.addPersonIsVisible ? <PersonForm/> : ''}
-        {this.state.personIsVisible ? <Person/> : ''}
+        {this.state.peopleListIsVisible ? <PeopleList toggleState={this.toggleState} people={this.state.people} /> : ''}
+        {this.state.addPersonIsVisible ? <PersonForm toggleState={this.toggleState} /> : ''}
+        {this.state.personIsVisible ? <Person toggleState={this.toggleState} /> : ''}
       </div>
     )
   }
