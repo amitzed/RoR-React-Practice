@@ -6,12 +6,18 @@ class People extends React.Component {
       addPersonIsVisible:false,
       personIsVisible:false,
       editPersonIsVisible:false,
-      people: []
+      people: [],
+      person: {}
     }
     this.toggleState = this.toggleState.bind(this)
+    this.getPerson = this.getPerson.bind(this)
   }
   componentDidMount () {
     this.getPeople();
+  }
+
+  getPerson( person ) {
+    this.setState({person: person })
   }
 
   getPeople () {
@@ -37,9 +43,27 @@ class People extends React.Component {
         <h2> People </h2>
         {this.state.peopleListIsVisible ? <button className="button is-success" onClick={()=>this.toggleState('addPersonIsVisible', 'peopleListIsVisible')}>Add a Person</button> :''}
 
-        {this.state.peopleListIsVisible ? <PeopleList toggleState={this.toggleState} people={this.state.people} /> : ''}
-        {this.state.addPersonIsVisible ? <PersonForm toggleState={this.toggleState} /> : ''}
-        {this.state.personIsVisible ? <Person toggleState={this.toggleState} /> : ''}
+        {
+          this.state.peopleListIsVisible ?
+          <PeopleList
+            toggleState={this.toggleState}
+            people={this.state.people}
+            getPerson={this.getPerson}
+          /> : ''
+         }
+        {
+          this.state.addPersonIsVisible ?
+          <PersonForm
+           toggleState={this.toggleState}
+          /> : ''
+        }
+        {
+          this.state.personIsVisible ?
+          <Person
+           toggleState={this.toggleState}
+           person={this.state.person}
+          /> : ''
+        }
       </div>
     )
   }

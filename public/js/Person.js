@@ -5,17 +5,17 @@ class Person extends React.Component {
         <div className='tile is-ancestor'>
           <div className='tile is-2'>
             <div>
-              <img src="https://robohash.org/static_react_component13/?size=100x100&set=set4" alt="Felix Fancy Pants" />
+              <img src={this.props.person.avatar} alt={this.props.person.name} />
             </div>
           </div>
           <div className='tile is-2'></div>
           <div className='tile'>
             <div>
-              <h3 className='tile is-child box'><span>Name:</span> Felix Fancy Pants </h3>
-              <p className='tile is-child box'><span>Phone:</span> 555-555-5555</p>
-              <p className='tile is-child box'><span>Key Skill:</span> Bug Squashing</p>
-              <p className='tile is-child box'><span>Age:</span> 4 </p>
-              <p className='tile is-child box'><span>Employed at:</span> Petscapades </p>
+              <h3 className='tile is-child box'><span>Name:</span> {this.props.person.name} </h3>
+              <p className='tile is-child box'><span>Phone:</span> {this.props.person.phone}</p>
+              <p className='tile is-child box'><span>Key Skill:</span> {this.props.person.key_skills}</p>
+              <p className='tile is-child box'><span>Age:</span> 4 </p>{this.props.person.age}
+              // <p className='tile is-child box'><span>Employed at:</span> Petscapades </p>
             </div>
             <div className='tile'>
             </div>
