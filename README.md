@@ -1,4 +1,4 @@
-Repo: RoR-React-Practice
+Repo: Ruby On Rails & React-Practice
 
 # README
 
